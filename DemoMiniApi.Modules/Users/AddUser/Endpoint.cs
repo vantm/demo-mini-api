@@ -1,30 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
+﻿namespace DemoMiniApi.Modules.Users.AddUser;
 
-namespace DemoMiniApi.Modules.Users.AddUser;
-
-public class Endpoint : EndpointBaseAsync
-    .WithRequest<Request>
-    .WithResult<Response>
+public class Endpoint : Endpoint<Request, Response>
 {
-    private readonly IValidator<Request> _validator;
-    private readonly IMapper _mapper;
-
-    public Endpoint(IValidator<Request> validator, IMapper mapper)
+    public override void Configure()
     {
-        _validator = validator;
-        _mapper = mapper;
+        Post("users");
     }
 
-    [HttpPost("users")]
-    [SwaggerOperation(Summary = "Add an user")]
-    public override async Task<Response> HandleAsync(Request request, CancellationToken cancellationToken = default)
+    public override Task HandleAsync(Request req, CancellationToken ct)
     {
-        await _validator.ValidateAndThrowAsync(request, cancellationToken);
+        ThrowIfAnyErrors();
 
-        var response = _mapper.Map<Response>(request);
-        response.Id = 4;
-
-        return response;
+        return SendCreatedAtAsync("users", 4, new()
+        {
+            Id = 4,
+            Name = req.Name,
+            UserName = req.UserName
+        }, cancellation: ct);
     }
 }

@@ -1,20 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<Using Include="AutoMapper" />
-		<Using Include="Ardalis.ApiEndpoints" />
-		<Using Include="FluentValidation" />
-		<Using Include="MiniApi" />
-	</ItemGroup>
+    <ItemGroup>
+        <Using Include="FastEndpoints" />
+        <Using Include="FluentValidation" />
+        <Using Include="MiniApi"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MiniApi\MiniApi.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\MiniApi\MiniApi.csproj" />
+    </ItemGroup>
 
 </Project>

@@ -5,8 +5,6 @@ VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoMiniApi", "DemoMiniApi\DemoMiniApi.csproj", "{6A695124-201B-4960-A5FB-A25232DBFD6D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoMiniApi.Modules", "DemoMiniApi.Modules\DemoMiniApi.Modules.csproj", "{02A71D73-D368-4D95-97B8-196A5352CE93}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniApi", "MiniApi\MiniApi.csproj", "{0C63FDC1-A87D-4417-92E5-AD0046C8D587}"
 EndProject
 Global
@@ -19,10 +17,6 @@ Global
 		{6A695124-201B-4960-A5FB-A25232DBFD6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A695124-201B-4960-A5FB-A25232DBFD6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A695124-201B-4960-A5FB-A25232DBFD6D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{02A71D73-D368-4D95-97B8-196A5352CE93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{02A71D73-D368-4D95-97B8-196A5352CE93}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{02A71D73-D368-4D95-97B8-196A5352CE93}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{02A71D73-D368-4D95-97B8-196A5352CE93}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0C63FDC1-A87D-4417-92E5-AD0046C8D587}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0C63FDC1-A87D-4417-92E5-AD0046C8D587}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C63FDC1-A87D-4417-92E5-AD0046C8D587}.Release|Any CPU.ActiveCfg = Release|Any CPU

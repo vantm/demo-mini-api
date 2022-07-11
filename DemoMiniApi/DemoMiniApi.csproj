@@ -1,17 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<Using Include="DemoMiniApi"/>
-	</ItemGroup>
+    <ItemGroup>
+        <Using Include="DemoMiniApi" />
+        <Using Include="FastEndpoints" />
+        <Using Include="FluentValidation" />
+        <Using Include="MiniApi" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\DemoMiniApi.Modules\DemoMiniApi.Modules.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="FastEndpoints.Generator" Version="4.3.0" />
+        <PackageReference Include="FastEndpoints.Swagger" Version="4.3.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MiniApi\MiniApi.csproj" />
+    </ItemGroup>
 
 </Project>

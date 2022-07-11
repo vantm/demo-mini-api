@@ -24,7 +24,6 @@ public class Validator : AbstractValidator<Request>
     }
 }
 
-[AutoMap(typeof(Request))]
 public class Response : Request
 {
     public long Id { get; set; }

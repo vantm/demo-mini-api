@@ -1,29 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Swashbuckle.AspNetCore.Annotations;
+﻿using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
 namespace DemoMiniApi.Modules.Users.EditUser;
 
-public class Endpoint : EndpointBaseAsync
-    .WithRequest<Request>
-    .WithoutResult
+public class Endpoint : Endpoint<Request>
 {
-    private readonly IValidator<Request> _validator;
-    private readonly ILogger<Endpoint> _logger;
-
-    public Endpoint(IValidator<Request> validator, ILogger<Endpoint> logger)
+    public override void Configure()
     {
-        _validator = validator;
-        _logger = logger;
+        Put("users/{Id}");
     }
 
-    [HttpPut("users/{id:long:min(1)}")]
-    [SwaggerOperation(Summary = "Update an user")]
-    public override async Task HandleAsync([FromRoute] Request request, CancellationToken cancellationToken = default)
+    public override Task HandleAsync(Request req, CancellationToken ct)
     {
-        await _validator.ValidateAndThrowAsync(request, cancellationToken);
+        ThrowIfAnyErrors();
 
-        _logger.LogDebug("User {id} had been updated to {data}", request.Id, JsonSerializer.Serialize(request.Data));
+        Logger.LogDebug("User {id} had been updated to {data}", req.Id, JsonSerializer.Serialize(req));
+
+        return SendNoContentAsync(ct);
     }
 }

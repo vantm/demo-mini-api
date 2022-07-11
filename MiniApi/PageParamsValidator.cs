@@ -2,7 +2,7 @@
 
 namespace MiniApi;
 
-public abstract class PageParamsValidator<T> : AbstractValidator<T> where T : PageParams
+public abstract class PageParamsValidator<T> : Validator<T> where T : PageParams
 {
     protected PageParamsValidator()
     {

@@ -1,19 +1,13 @@
-﻿using DemoMiniApi.Modules;
-using MiniApi.ApiEndpoints;
-
-namespace DemoMiniApi;
+﻿namespace DemoMiniApi;
 
 public static class WebApplicationBuilderExtensions
 {
     public static WebApplicationBuilder AddModules(this WebApplicationBuilder builder)
     {
-        ApiEndpointModule.ModuleAssemblies.AddRange(new[]
+        builder.Services.RegisterModules(builder.Configuration, builder.Environment, new[]
         {
-            typeof(ApiEndpointModule).Assembly,
-            typeof(DemoModules).Assembly
+            typeof(Program).Assembly
         });
-
-        builder.Services.RegisterModules(builder.Configuration, builder.Environment, ApiEndpointModule.ModuleAssemblies);
 
         return builder;
     }
