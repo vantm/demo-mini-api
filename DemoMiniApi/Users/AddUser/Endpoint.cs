@@ -24,7 +24,7 @@ public class Endpoint : Endpoint<Request, Response>
 
     public override Task HandleAsync(Request req, CancellationToken ct)
     {
-        return SendCreatedAtAsync<GetUser.Endpoint>(new GetUser.Request { Id = 4 }, new()
+        return SendCreatedAtAsync("getUser", new { Id = 4 }, new()
         {
             Id = 4,
             Name = req.Name,

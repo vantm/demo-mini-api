@@ -11,6 +11,7 @@ public class Endpoint : Endpoint<Request, Response, Mapper>
 
         Description(b =>
         {
+            b.WithName("getUser");
             b.Produces<Response>(StatusCodes.Status200OK, "application/json+custom");
             b.ProducesProblem(StatusCodes.Status404NotFound, "application/json+problem");
             b.ProducesValidationProblem();
