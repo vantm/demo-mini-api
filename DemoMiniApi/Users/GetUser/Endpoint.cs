@@ -1,6 +1,6 @@
-﻿using DemoMiniApi.Modules.Users.Models;
+﻿using DemoMiniApi.Users.Models;
 
-namespace DemoMiniApi.Modules.Users.GetUser;
+namespace DemoMiniApi.Users.GetUser;
 
 public class Endpoint : Endpoint<Request, Response, Mapper>
 {

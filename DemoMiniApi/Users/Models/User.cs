@@ -1,6 +1,6 @@
 ﻿#nullable disable
 
-namespace DemoMiniApi.Modules.Users.Models;
+namespace DemoMiniApi.Users.Models;
 
 public class User
 {

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace DemoMiniApi.Modules.Users.EditUser;
+namespace DemoMiniApi.Users.EditUser;
 
 public class Endpoint : Endpoint<Request>
 {

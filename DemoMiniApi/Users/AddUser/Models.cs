@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace DemoMiniApi.Modules.Users.AddUser;
+namespace DemoMiniApi.Users.AddUser;
 
 public class Request
 {

@@ -1,4 +1,4 @@
-﻿namespace DemoMiniApi.Modules.Users.AddUser;
+﻿namespace DemoMiniApi.Users.AddUser;
 
 public class Endpoint : Endpoint<Request, Response>
 {

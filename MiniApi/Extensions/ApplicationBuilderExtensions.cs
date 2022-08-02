@@ -6,17 +6,34 @@ namespace Microsoft.AspNetCore.Builder;
 
 public static class ApplicationBuilderExtensions
 {
-    public static IApplicationBuilder UseModules(this IApplicationBuilder app)
+    public static IApplicationBuilder UseModules(this IApplicationBuilder app,
+        Action? preConfigure = null,
+        Action? postConfigure = null)
     {
-        var modules = app.ApplicationServices.GetRequiredService<IEnumerable<Module>>();
+        var moduleLocator = app.ApplicationServices.GetRequiredService<ModuleLocator>();
         var logger = app.ApplicationServices.GetRequiredService<ILoggerFactory>().CreateLogger(typeof(Module).Namespace!);
 
-        foreach (var module in modules.OrderBy(x => x.Priority))
+        preConfigure?.Invoke();
+
+        foreach (var module in moduleLocator.Items)
+        {
+            module.PreConfigure(app);
+            logger.LogDebug("Completed to configure for module {Name}", module.GetType().Name);
+        }
+
+        foreach (var module in moduleLocator.Items)
         {
             module.Configure(app);
-
-            logger.LogDebug("Configured module {name}.", module.GetType().FullName);
+            logger.LogDebug("Completed to configure for module {Name}", module.GetType().Name);
         }
+
+        foreach (var module in moduleLocator.Items)
+        {
+            module.PostConfigure(app);
+            logger.LogDebug("Completed to configure for module {Name}", module.GetType().Name);
+        }
+
+        postConfigure?.Invoke();
 
         return app;
     }

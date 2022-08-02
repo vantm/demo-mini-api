@@ -1,4 +1,4 @@
-﻿namespace DemoMiniApi.Modules.Users;
+﻿namespace DemoMiniApi.Users;
 
 public class UserModule : Module
 {

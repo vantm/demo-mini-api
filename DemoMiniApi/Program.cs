@@ -1,8 +1,7 @@
+using DemoMiniApi.Users;
 using FastEndpoints.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.AddModules();
 
 builder.Services.AddFastEndpoints(o =>
 {
@@ -16,17 +15,20 @@ builder.Services.AddSwaggerDoc(s =>
     s.Version = "v1";
 });
 
-//////////////////////////////
+builder.Services.RegisterApplicationModule<UserModule>(builder.Configuration, builder.Environment);
 
 var app = builder.Build();
 
-app.UseDefaultExceptionHandler();
-app.UseAuthorization();
-app.UseModules();
-app.UseFastEndpoints();
-app.UseOpenApi();
-app.UseSwaggerUi3(c => c.ConfigureDefaults());
+app.UseModules(preConfigure: () =>
+{
+    app.UseDefaultExceptionHandler();
+    app.UseAuthorization();
+}, postConfigure: () =>
+{
+    app.UseFastEndpoints();
+    app.UseOpenApi();
+    app.UseSwaggerUi3(c => c.ConfigureDefaults());
+});
 
-//////////////////////////////
 
 app.Run();

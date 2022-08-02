@@ -9,11 +9,11 @@ namespace MiniApi;
 
 public abstract class Module
 {
-    public virtual ModulePriority Priority => ModulePriority.Feature;
-
     public IConfiguration Configuration { get; internal set; }
     public IHostEnvironment Environment { get; internal set; }
 
     public virtual void RegisterServices(IServiceCollection services) { }
+    public virtual void PreConfigure(IApplicationBuilder app) { }
     public virtual void Configure(IApplicationBuilder app) { }
+    public virtual void PostConfigure(IApplicationBuilder app) { }
 }
