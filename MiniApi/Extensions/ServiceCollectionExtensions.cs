@@ -1,22 +1,21 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using System.Reflection;
 using MiniApi;
+using System.Reflection;
 using Module = MiniApi.Module;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection RegisterApplicationModule<T>(
-        this IServiceCollection services,
-        IConfiguration configuration,
-        IHostEnvironment environment) where T : Module
+    public static IServiceCollection RegisterEntryModule<T>(this IServiceCollection services,
+                                                            IConfiguration configuration,
+                                                            IHostEnvironment environment) where T : Module
     {
         var queue = new Queue<Type>();
         var moduleTypes = new HashSet<Type>();
 
-        queue.Append(typeof(T));
+        queue.Enqueue(typeof(T));
 
         while (queue.Count > 0)
         {
@@ -31,7 +30,7 @@ public static class ServiceCollectionExtensions
                 if (!queue.Contains(dependedModule) &&
                     !moduleTypes.Contains(dependedModule))
                 {
-                    queue.Append(dependedModule);
+                    queue.Enqueue(dependedModule);
                 }
             }
         }
