@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using MiniApi;
 using System.Reflection;
 using Module = MiniApi.Module;
 

@@ -18,7 +18,7 @@ public class Response
     public string? Name { get; set; }
 }
 
-public class Validator : Validator<Request>
+public class Validator : AbstractValidator<Request>
 {
     public Validator()
     {

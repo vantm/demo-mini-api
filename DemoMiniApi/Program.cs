@@ -5,5 +5,4 @@ builder.Services.RegisterEntryModule<StartupModule>(builder.Configuration, build
 var app = builder.Build();
 
 app.UseModules();
-
 app.Run();

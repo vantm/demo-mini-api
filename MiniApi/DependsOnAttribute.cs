@@ -1,3 +1,5 @@
+namespace MiniApi;
+
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
 public class DependsOnAttribute : Attribute
 {

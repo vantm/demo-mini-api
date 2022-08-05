@@ -13,7 +13,6 @@ public abstract class Module
     public IHostEnvironment Environment { get; internal set; }
 
     public virtual void RegisterServices(IServiceCollection services) { }
-    public virtual void PreConfigure(IApplicationBuilder app) { }
-    public virtual void Configure(IApplicationBuilder app) { }
-    public virtual void PostConfigure(IApplicationBuilder app) { }
+    public virtual void PreConfigure(WebApplication app) { }
+    public virtual void Configure(WebApplication app) { }
 }

@@ -1,19 +1,36 @@
 ﻿using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DemoMiniApi.Users.EditUser;
 
 public class Request
 {
+    [FromRoute]
     public long Id { get; set; }
 
+    [FromBody]
+    public Body Data { get; set; }
+}
+
+
+public class Body
+{
     public string? UserName { get; set; }
 
     public string? Name { get; set; }
 }
 
-public class Validator : Validator<Request>
+public class Validator : AbstractValidator<Request>
 {
     public Validator()
+    {
+        RuleFor(x => x.Data).SetValidator(new BodyValidator());
+    }
+}
+
+public class BodyValidator : AbstractValidator<Body>
+{
+    public BodyValidator()
     {
         RuleFor(x => x!.UserName)
             .NotEmpty()

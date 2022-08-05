@@ -1,37 +1,15 @@
 ﻿using DemoMiniApi.Users.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DemoMiniApi.Users.GetUser;
 
-public class Endpoint : Endpoint<Request, Response, Mapper>
+public static class Endpoint
 {
-    public override void Configure()
-    {
-        Get("users/{Id}");
-        AllowAnonymous();
-
-        Description(b =>
-        {
-            b.WithName("getUser");
-            b.Produces<Response>(StatusCodes.Status200OK, "application/json+custom");
-            b.ProducesProblem(StatusCodes.Status404NotFound, "application/json+problem");
-            b.ProducesValidationProblem();
-        });
-
-        Summary(s =>
-        {
-            s.Summary = "Get an user";
-            s.ExampleRequest = new Request { Id = 1 };
-            s.Responses[200] = "The user is found";
-            s.Responses[400] = "The request is invalidate";
-            s.Responses[404] = "The user is not found";
-        });
-    }
-
-    public override async Task HandleAsync(Request req, CancellationToken ct)
+    public static IResult Handle([AsParameters] Request req, CancellationToken ct)
     {
         if (req.Id > 10)
         {
-            await SendNotFoundAsync(ct);
+            return Results.NotFound();
         }
 
         var entity = new User
@@ -41,8 +19,13 @@ public class Endpoint : Endpoint<Request, Response, Mapper>
             UserName = "john.d"
         };
 
-        var response = await Map.FromEntityAsync(entity);
+        var response = new Response
+        {
+            Id = entity.Id,
+            Name = entity.Name,
+            UserName = entity.UserName
+        };
 
-        await SendOkAsync(response, ct);
+        return Results.Ok(response);
     }
 }

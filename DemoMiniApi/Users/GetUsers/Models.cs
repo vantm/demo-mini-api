@@ -7,11 +7,13 @@ public class Request : PageParams
     public string? Filter { get; init; }
 }
 
-public class Validator : PageParamsValidator<Request>
+public class Validator : AbstractValidator<Request>
 {
     public Validator()
     {
         RuleFor(x => x.Filter).MaximumLength(50);
+        RuleFor(x => x.Page).GreaterThan(0);
+        RuleFor(x => x.PerPage).GreaterThanOrEqualTo(0).LessThanOrEqualTo(500);
     }
 }
 

@@ -2,29 +2,12 @@
 
 namespace DemoMiniApi.Users.GetUsers;
 
-public class Endpoint : Endpoint<Request, Response>
+public static class Endpoint
 {
-    public override void Configure()
+    public static IResult Handle([AsParameters] Request req, IValidator<Request> validator, CancellationToken ct)
     {
-        Get("users");
-        AllowAnonymous();
+        validator.ValidateAndThrow(req);
 
-        Description(b =>
-        {
-            b.Produces<Response>(StatusCodes.Status200OK, "application/json+custom");
-            b.ProducesValidationProblem();
-        });
-
-        Summary(s =>
-        {
-            s.Summary = "Get an user";
-            s.ExampleRequest = new Request { Filter = "john", Page = 1, PerPage = 20 };
-            s.Responses[400] = "The request is invalidate";
-        });
-    }
-
-    public override Task HandleAsync(Request req, CancellationToken ct)
-    {
         var users = new List<User>
         {
             new() { Id = 1, Name = "John", UserName = "john.1" },
@@ -37,6 +20,6 @@ public class Endpoint : Endpoint<Request, Response>
         response.SetParams(req);
         response.SetResult(users, users.Count);
 
-        return SendOkAsync(response, ct);
+        return Results.Ok(response);
     }
 }

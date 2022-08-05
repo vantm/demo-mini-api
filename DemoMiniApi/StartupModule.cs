@@ -1,5 +1,5 @@
 ﻿using DemoMiniApi.Users;
-using FastEndpoints.Swagger;
+using System.Reflection;
 
 namespace DemoMiniApi
 {
@@ -10,30 +10,29 @@ namespace DemoMiniApi
     {
         public override void RegisterServices(IServiceCollection services)
         {
-            services.AddFastEndpoints(o =>
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen(o =>
             {
-                o.SourceGeneratorDiscoveredTypes = DiscoveredTypes.All;
+                o.CustomSchemaIds(t => t.FullName);
             });
-
-            services.AddSwaggerDoc(s =>
-            {
-                s.Title = "My API";
-                s.Description = "Demo MiniAPI";
-                s.Version = "v1";
-            });
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
-        public override void PreConfigure(IApplicationBuilder app)
+        public override void PreConfigure(WebApplication app)
         {
-            app.UseDefaultExceptionHandler();
-            app.UseAuthorization();
-        }
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
 
-        public override void PostConfigure(IApplicationBuilder app)
-        {
-            ((WebApplication)app).UseFastEndpoints();
-            app.UseOpenApi();
-            app.UseSwaggerUi3(c => c.ConfigureDefaults());
+            app.UseExceptionHandler(exceptionHandlerAppBuilder =>
+            {
+                var logger = exceptionHandlerAppBuilder.ApplicationServices.GetRequiredService<ILogger<StartupModule>>();
+
+                exceptionHandlerAppBuilder.Run(ctx => ExceptionMiddleware.Handle(ctx, logger));
+            });
         }
     }
 }
