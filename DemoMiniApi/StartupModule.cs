@@ -1,12 +1,10 @@
-﻿using DemoMiniApi.Products;
-using DemoMiniApi.Users;
+﻿using DemoMiniApi.DataAccess;
 using System.Reflection;
 
 namespace DemoMiniApi
 {
     [DependsOn(
-        typeof(UserModule),
-        typeof(ProductModule)
+        typeof(DataAccessModule)
     )]
     public class StartupModule : Module
     {
