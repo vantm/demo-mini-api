@@ -1,7 +1,4 @@
-﻿using DemoMiniApi.Users.Models;
-using Microsoft.AspNetCore.Mvc;
-
-namespace DemoMiniApi.Users.GetUser;
+﻿namespace DemoMiniApi.Users.GetUser;
 
 public static class Endpoint
 {
@@ -9,7 +6,7 @@ public static class Endpoint
     {
         if (req.Id > 10)
         {
-            return Results.NotFound();
+            return Results.NotFound(req.Id);
         }
 
         var entity = new User

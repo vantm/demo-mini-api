@@ -1,8 +1,8 @@
 ﻿#nullable disable
 
-namespace DemoMiniApi.Users.Models;
+namespace DemoMiniApi.Users;
 
-public class User
+public record User
 {
     public long Id { get; set; }
 

@@ -1,42 +1,33 @@
-﻿using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 
 namespace DemoMiniApi.Users.EditUser;
 
-public class Request
+public record Parameters
 {
     [FromRoute]
-    public long Id { get; set; }
+    public long Id { get; init; }
 
     [FromBody]
-    public Body Data { get; set; }
+    public Request Request { get; init; } = new();
 }
 
-
-public class Body
+public record Request
 {
-    public string? UserName { get; set; }
+    public string? UserName { get; init; }
 
-    public string? Name { get; set; }
+    public string? Name { get; init; }
 }
 
 public class Validator : AbstractValidator<Request>
 {
     public Validator()
     {
-        RuleFor(x => x.Data).SetValidator(new BodyValidator());
-    }
-}
-
-public class BodyValidator : AbstractValidator<Body>
-{
-    public BodyValidator()
-    {
         RuleFor(x => x!.UserName)
             .NotEmpty()
             .MinimumLength(6)
             .MaximumLength(30)
-            .Matches("^[a-z][a-z0-9_\\.]+$", RegexOptions.IgnoreCase | RegexOptions.Multiline).WithMessage("The format of {PropertyName} is invalid.");
+            .Matches("^[a-z][a-z0-9_\\.]+$", RegexOptions.IgnoreCase | RegexOptions.Multiline).WithMessage("The format of field '{PropertyName}' is invalid. It must contain only alphabet, numeric, or underscore and the first character must be an alphabet.");
 
         RuleFor(x => x!.Name)
             .MaximumLength(50);

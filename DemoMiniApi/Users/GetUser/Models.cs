@@ -2,13 +2,13 @@
 
 namespace DemoMiniApi.Users.GetUser;
 
-public class Request
+public record Request
 {
     [FromRoute]
     public long Id { get; set; }
 }
 
-public class Response
+public record Response
 {
     public long Id { get; set; }
 

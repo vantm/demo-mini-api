@@ -1,6 +1,4 @@
-﻿using DemoMiniApi.Users.Models;
-
-namespace DemoMiniApi.Users.GetUsers;
+﻿namespace DemoMiniApi.Users.GetUsers;
 
 public static class Endpoint
 {

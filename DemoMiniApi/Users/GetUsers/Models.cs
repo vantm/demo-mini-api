@@ -1,20 +1,8 @@
-﻿using DemoMiniApi.Users.Models;
+﻿namespace DemoMiniApi.Users.GetUsers;
 
-namespace DemoMiniApi.Users.GetUsers;
-
-public class Request : PageParams
+public record Request : PageParams
 {
     public string? Filter { get; init; }
-}
-
-public class Validator : AbstractValidator<Request>
-{
-    public Validator()
-    {
-        RuleFor(x => x.Filter).MaximumLength(50);
-        RuleFor(x => x.Page).GreaterThan(0);
-        RuleFor(x => x.PerPage).GreaterThanOrEqualTo(0).LessThanOrEqualTo(500);
-    }
 }
 
 public class Response : PageResult<User, Request>
@@ -24,5 +12,15 @@ public class Response : PageResult<User, Request>
     protected override void SetMoreParams(Request pageParams)
     {
         Filter = pageParams.Filter;
+    }
+}
+
+public class Validator : AbstractValidator<Request>
+{
+    public Validator()
+    {
+        RuleFor(x => x.Filter).MaximumLength(50);
+        RuleFor(x => x.Page).GreaterThan(0);
+        RuleFor(x => x.PerPage).GreaterThanOrEqualTo(0).LessThanOrEqualTo(500);
     }
 }

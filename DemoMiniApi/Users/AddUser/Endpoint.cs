@@ -15,6 +15,6 @@ public static class Endpoint
             UserName = req.UserName
         };
 
-        return Results.CreatedAtRoute("getUser", new { Id = 4 }, response);
+        return Results.CreatedAtRoute(nameof(GetUser), new { Id = 4 }, response);
     }
 }
