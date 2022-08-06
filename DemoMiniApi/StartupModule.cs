@@ -16,6 +16,7 @@ namespace DemoMiniApi
                 o.CustomSchemaIds(t => t.FullName);
             });
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
         }
 
         public override void PreConfigure(WebApplication app)

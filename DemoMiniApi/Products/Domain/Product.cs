@@ -1,8 +1,9 @@
 ﻿#nullable disable
 
-namespace DemoMiniApi.Products;
 
-public record Product
+namespace DemoMiniApi.Products.Domain;
+
+public class Product
 {
     public long Id { get; set; }
 

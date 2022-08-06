@@ -1,22 +1,33 @@
-﻿namespace DemoMiniApi.Users.GetUsers;
+﻿using DemoMiniApi.Common;
+using DemoMiniApi.Users.Domain;
+
+namespace DemoMiniApi.Users.GetUsers;
 
 public static class Endpoint
 {
-    public static IResult Handle([AsParameters] Request req, IValidator<Request> validator, CancellationToken ct)
+    public static async Task<IResult> Handle([AsParameters] Request req, IValidator<Request> validator, IUserRepo repo, IMapper mapper, CancellationToken ct)
     {
         validator.ValidateAndThrow(req);
 
-        var users = new List<User>
+        var predicator = PredicatorBuilder.True<User>();
+
+        if (req.Name != null)
         {
-            new() { Id = 1, Name = "John", UserName = "john.1" },
-            new() { Id = 2, Name = "bob", UserName = "bob.2" },
-            new() { Id = 3, Name = "alice", UserName = "alice.3" }
-        };
+            predicator = predicator.And(Predicators.NameStartsWith(req.Name));
+        }
+
+        if (req.UserName != null)
+        {
+            predicator = predicator.And(Predicators.UserNameStartsWith(req.UserName));
+        }
+
+        var page = await repo.SelectPageAsync(new(predicator, null), req, ct);
+        var responseItems = mapper.Map<ResponseItem[]>(page.Items);
 
         var response = new Response();
 
         response.SetParams(req);
-        response.SetResult(users, users.Count);
+        response.SetResult(responseItems, page.Total);
 
         return Results.Ok(response);
     }

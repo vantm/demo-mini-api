@@ -1,7 +1,7 @@
 ﻿#nullable disable
 
-using DemoMiniApi.Products;
-using DemoMiniApi.Users;
+using DemoMiniApi.Products.Domain;
+using DemoMiniApi.Users.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -25,6 +25,8 @@ public class MasterDbContext : DbContext
 
     private static void BuildProductModel(EntityTypeBuilder<Product> builder)
     {
+        builder.ToTable(nameof(Product));
+
         builder.Property(x => x.Id).ValueGeneratedOnAdd();
         builder.Property(x => x.Name).IsRequired().HasMaxLength(200);
         builder.Property(x => x.Price).IsRequired();
@@ -32,6 +34,8 @@ public class MasterDbContext : DbContext
 
     private static void BuildUserModel(EntityTypeBuilder<User> builder)
     {
+        builder.ToTable(nameof(User));
+
         builder.Property(x => x.Id).ValueGeneratedOnAdd();
         builder.Property(x => x.UserName).IsRequired().HasMaxLength(100);
         builder.Property(x => x.Name).HasMaxLength(200);

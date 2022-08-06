@@ -1,14 +1,25 @@
-﻿using System.Text.Json;
+﻿using DemoMiniApi.Users.Domain;
 
 namespace DemoMiniApi.Users.EditUser;
 
 public static class Endpoint
 {
-    public static IResult Handle([AsParameters] Parameters parameters, IValidator<Request> validator, ILogger<UserModule> logger, CancellationToken ct)
+    public static async Task<IResult> Handle([AsParameters] Parameters param, IValidator<Request> validator, IMapper mapper, IUserRepo repo, IUow uow, CancellationToken ct)
     {
-        validator.ValidateAndThrow(parameters.Request);
+        validator.ValidateAndThrow(param.Request);
 
-        logger.LogDebug("User {id} had been updated to {data}", parameters.Id, JsonSerializer.Serialize(parameters.Request));
+        var user = await repo.FindAsync(param.Id);
+
+        if (user == null)
+        {
+            return Results.NotFound(param.Id);
+        }
+
+        mapper.Map(param.Request, user);
+
+        await repo.UpdateAsync(user);
+
+        await uow.SaveChangesAsync(ct);
 
         return Results.NoContent();
     }

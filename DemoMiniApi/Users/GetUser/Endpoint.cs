@@ -1,27 +1,19 @@
-﻿namespace DemoMiniApi.Users.GetUser;
+﻿using DemoMiniApi.Users.Domain;
+
+namespace DemoMiniApi.Users.GetUser;
 
 public static class Endpoint
 {
-    public static IResult Handle([AsParameters] Request req, CancellationToken ct)
+    public static async Task<IResult> Handle([AsParameters] Request req, IUserRepo repo, IMapper mapper, CancellationToken ct)
     {
-        if (req.Id > 10)
+        var user = await repo.FindAsync(req.Id);
+
+        if (user == null)
         {
             return Results.NotFound(req.Id);
         }
 
-        var entity = new User
-        {
-            Id = req.Id,
-            Name = "John Doe",
-            UserName = "john.d"
-        };
-
-        var response = new Response
-        {
-            Id = entity.Id,
-            Name = entity.Name,
-            UserName = entity.UserName
-        };
+        var response = mapper.Map<Response>(user);
 
         return Results.Ok(response);
     }

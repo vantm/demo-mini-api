@@ -1,4 +1,6 @@
-﻿namespace DemoMiniApi.Products.GetProducts;
+﻿using DemoMiniApi.Products.Domain;
+
+namespace DemoMiniApi.Products.GetProducts;
 
 public static class Endpoint
 {

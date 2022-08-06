@@ -1,6 +1,8 @@
-﻿namespace DemoMiniApi.Products.GetProducts;
+﻿using DemoMiniApi.Products.Domain;
 
-public record Request : PageParams
+namespace DemoMiniApi.Products.GetProducts;
+
+public class Request : PageParams
 {
 }
 

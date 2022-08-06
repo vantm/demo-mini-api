@@ -2,13 +2,13 @@
 
 namespace DemoMiniApi.Products.GetProduct;
 
-public record Request
+public class Request
 {
     [FromRoute]
     public int Id { get; init; }
 }
 
-public record Response
+public class Response
 {
     public int Id { get; init; }
 
