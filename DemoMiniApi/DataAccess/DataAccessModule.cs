@@ -1,6 +1,5 @@
-﻿using DemoMiniApi.Products;
-using DemoMiniApi.Users;
-using DemoMiniApi.Users.Domain;
+﻿using DemoMiniApi.Features.Products;
+using DemoMiniApi.Features.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace DemoMiniApi.DataAccess;
@@ -24,8 +23,7 @@ public class DataAccessModule : Module
             }
         });
 
-        services.AddScoped<IUow, MasterDbUow>();
-        services.AddScoped<IUserRepo, UserRepo>();
+        services.AddScoped<IUnitOfWork, MasterUnitOfWork>();
     }
 
     public override void PreConfigure(WebApplication app)

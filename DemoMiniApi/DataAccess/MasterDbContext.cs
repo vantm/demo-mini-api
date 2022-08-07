@@ -1,7 +1,7 @@
 ﻿#nullable disable
 
-using DemoMiniApi.Products.Domain;
-using DemoMiniApi.Users.Domain;
+using DemoMiniApi.Domain.Products;
+using DemoMiniApi.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
