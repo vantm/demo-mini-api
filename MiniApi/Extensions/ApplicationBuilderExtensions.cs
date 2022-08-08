@@ -22,6 +22,12 @@ public static class ApplicationBuilderExtensions
             logger.LogDebug("Configure for the module '{Name}'", module.GetType().Name);
         }
 
+        foreach (var module in moduleLocator.Items)
+        {
+            module.PostConfigure(app);
+            logger.LogDebug("Post-configure for the module '{Name}'", module.GetType().Name);
+        }
+
         return app;
     }
 }

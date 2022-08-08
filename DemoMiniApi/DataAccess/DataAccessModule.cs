@@ -26,7 +26,7 @@ public class DataAccessModule : Module
         services.AddScoped<IUnitOfWork, MasterUnitOfWork>();
     }
 
-    public override void PreConfigure(WebApplication app)
+    public override void PostConfigure(WebApplication app)
     {
         using var scope = app.Services.CreateScope();
 

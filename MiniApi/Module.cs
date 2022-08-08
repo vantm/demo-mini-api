@@ -15,4 +15,5 @@ public abstract class Module
     public virtual void RegisterServices(IServiceCollection services) { }
     public virtual void PreConfigure(WebApplication app) { }
     public virtual void Configure(WebApplication app) { }
+    public virtual void PostConfigure(WebApplication app) { }
 }

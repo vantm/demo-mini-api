@@ -24,12 +24,12 @@ public static class ServiceCollectionExtensions
 
             var dependedModuleTypes = GetDependModuleTypes(currentModuleType);
 
-            foreach (var dependedModule in dependedModuleTypes)
+            foreach (var dependedModuleType in dependedModuleTypes)
             {
-                if (!queue.Contains(dependedModule) &&
-                    !moduleTypes.Contains(dependedModule))
+                if (!queue.Contains(dependedModuleType) &&
+                    !moduleTypes.Contains(dependedModuleType))
                 {
-                    queue.Enqueue(dependedModule);
+                    queue.Enqueue(dependedModuleType);
                 }
             }
         }
